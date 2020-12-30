@@ -131,6 +131,8 @@ route.delete("/:bookId", async (req, res, next) => {
         const { params } = req
         const search = await postgresBook.searchBooks({ book_id: params.bookId, needId: "true"})
         if (search.length !== 1) return res.status(400).json({ mesagge: "book not found" })
+        if(search[0].stock !== search[0].avaible) return res.status(400).json({ mesagge: "there are still books in rent" })
+        await postgresBook.deleteBook(params.bookId)
         return res.status(200).json({ mesagge: "book deleted" })
     } catch (error) {
         next(error)

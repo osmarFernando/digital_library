@@ -44,10 +44,9 @@ class PostgresBook {
         await client.query(query)
     }
     async deleteBook(data) {
-        console.log(data)
-        const query = `DELETE FROM book WHERE book_id = '${data}'`
+        const query = `DELETE FROM book 
+                        WHERE book_id = '${data}'`
         client.query(query)
     }
- 
 }
 module.exports = PostgresBook
