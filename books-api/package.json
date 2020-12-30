@@ -1,0 +1,24 @@
+{
+  "name": "books-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev-start": "nodemon index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "books-db": "file:../books-db/",
+    "express": "^4.17.1",
+    "express-asyncify": "^1.0.1",
+    "fast-csv": "^4.3.5",
+    "joi": "^17.3.0",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
