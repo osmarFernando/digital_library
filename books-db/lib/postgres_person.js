@@ -6,20 +6,19 @@ class PostgresPerson {
     }
     async searchPerson(data) {
         let filter = []
-        if (data.name !== undefined) filter.push(`name ILIKE '%${data.name}%'`)
-        if (data.lastname !== undefined) filter.push(`lastname ILIKE '%${data.lastname}%'`)
-        if (data.curp !== undefined) filter.push(`curp ILIKE '${data.curp}'`)
-        if (data.age !== undefined) filter.push(`age = ${data.age}`)
-        if (data.status !== undefined) data.status === false ? "status=false" : filter.push(`status ILIKE '${data.status}'`)
-        if (data.book_id !== undefined) filter.push(`book_id = '${data.book_id}'`)
+        if (data.name !== undefined) filter.push(`p.name ILIKE '%${data.name}%'`)
+        if (data.lastname !== undefined) filter.push(`p.lastname ILIKE '%${data.lastname}%'`)
+        if (data.curp !== undefined) filter.push(`p.curp ILIKE '${data.curp}'`)
+        if (data.age !== undefined) filter.push(`p.age = ${data.age}`)
+        if (data.status !== undefined) data.status === false ? "status=false" : filter.push(`p.status ILIKE '${data.status}'`)
+        if (data.book_id !== undefined) filter.push(`p.book_id = '${data.book_id}'`)
         let cond = filter.join(' AND ')
         const query = `SELECT p.name, p.lastname, p.curp, p.age, p.status, b.book_id
                         FROM person p 
                         LEFT JOIN  book b 
                         ON p.book_id = b.id
-                        ${cond !== "" ? `WHERE  ${cond}` : ""} 
-                        ORDER BY p.name ASC`
-        console.log(query)
+                        ${cond !== "" ? `WHERE ${cond}` : ""} 
+                        ORDER BY p.name ASC`         
         let search = await client.query(query)
         return search.rows
     }
@@ -46,7 +45,8 @@ class PostgresPerson {
 
     }
     async deletePerson(data) {
-        const query = `DELETE FROM person WHERE curp = '${data}'`
+        const query = `DELETE FROM person 
+                        WHERE curp = '${data}'`
         client.query(query)
     }
 }

@@ -34,7 +34,7 @@ const searchSchema = joi.object({
     curp: joi.string(),
     lastname: joi.string(),
     age: joi.number(),
-    book_id: joi.number(),
+    book_id: joi.string(),
     status: joi.string()
 })
 const createSchema = joi.object({
