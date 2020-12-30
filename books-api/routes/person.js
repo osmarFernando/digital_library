@@ -9,7 +9,7 @@ const path = require("path")
 const csv = require("fast-csv")
 const { parse } = require("path")
 const { json } = require("body-parser")
-const { string } = require("joi")
+const { string, boolean } = require("joi")
 const PostgresPerson = require("books-db/lib/postgres_person")
 
 
@@ -35,7 +35,7 @@ const searchSchema = joi.object({
     lastname: joi.string(),
     age: joi.number(),
     book_id: joi.string(),
-    status: joi.string()
+    status: joi.boolean()
 })
 const createSchema = joi.object({
     name: joi.string().trim().min(1).max(25).regex(/^[a-zA-Z]+$/).required().strict(),

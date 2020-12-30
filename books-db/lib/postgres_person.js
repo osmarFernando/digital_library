@@ -5,12 +5,13 @@ class PostgresPerson {
     constructor() {
     }
     async searchPerson(data) {
+        console.log(data)
         let filter = []
         if (data.name !== undefined) filter.push(`p.name ILIKE '%${data.name}%'`)
         if (data.lastname !== undefined) filter.push(`p.lastname ILIKE '%${data.lastname}%'`)
         if (data.curp !== undefined) filter.push(`p.curp ILIKE '${data.curp}'`)
         if (data.age !== undefined) filter.push(`p.age = ${data.age}`)
-        if (data.status !== undefined) data.status === false ? "status=false" : filter.push(`p.status ILIKE '${data.status}'`)
+        if (data.status !== undefined) filter.push(`p.status = ${data.status}`)
         if (data.book_id !== undefined) filter.push(`p.book_id = '${data.book_id}'`)
         let cond = filter.join(' AND ')
         const query = `SELECT p.name, p.lastname, p.curp, p.age, p.status, b.book_id

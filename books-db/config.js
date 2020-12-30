@@ -1,9 +1,9 @@
 require("dotenv").config()
-const { Client } = require('pg')
+const { Client, Connection } = require('pg')
 const config = { 
     port: process.env.PORT,
     enviroment: process.env.NODE_ENV || "development",
-   
+    
     client: new Client ({
         host: process.env.HOST,
         database: process.env.DATABASE,
@@ -12,9 +12,8 @@ const config = {
         password: process.env.PASSWORD
     })
 }
-
-console.log(process.env.USER_DB)
-config.client.connect().then(() => console.log("connect to postgres"))
-.catch(error => console.log(error))
+config.client.connect()    
+     .then(() => console.log("connect to postgres"))
+     .catch(error => console.log(error))  
 
 module.exports = { config } 
